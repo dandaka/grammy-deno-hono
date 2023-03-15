@@ -12,7 +12,7 @@ const app = new Hono();
 app.get("/", (c) => c.text("Hello Deno!"));
 
 app.post("/telegram", () => {
-  return handleUpdate();
+  return handleUpdate(c.req);
 });
 
 serve(app.fetch);
