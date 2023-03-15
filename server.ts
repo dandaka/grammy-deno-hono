@@ -1,20 +1,18 @@
+import { Hono } from "https://deno.land/x/hono@v3.0.2/mod.ts";
+import { cors } from "https://deno.land/x/hono@v3.0.2/middleware.ts";
+
 import { serve } from "https://deno.land/std@0.179.0/http/server.ts";
-import { webhookCallback } from "https://deno.land/x/grammy@v1.15.3/mod.ts";
-// You might modify this to the correct way to import your `Bot` object.
 import { bot } from "./bot.ts";
+import { webhookCallback } from "./deps.deno.ts";
 
-const handleUpdate = webhookCallback(bot, "std/http");
+// const handleUpdate = webhookCallback(bot, "hono");
 
-serve(async (req) => {
-  if (req.method === "POST") {
-    const url = new URL(req.url);
-    if (url.pathname.slice(1) === bot.token) {
-      try {
-        return await handleUpdate(req);
-      } catch (err) {
-        console.error(err);
-      }
-    }
-  }
-  return new Response();
-});
+console.log("server is running");
+
+const app = new Hono();
+
+app.get("/", (c) => c.text("Hello Deno!"));
+
+app.post("/telegram", webhookCallback(bot, "hono"));
+
+serve(app.fetch);
