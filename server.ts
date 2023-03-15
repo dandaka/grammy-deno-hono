@@ -7,6 +7,8 @@ import { webhookCallback } from "./deps.deno.ts";
 
 // const handleUpdate = webhookCallback(bot, "hono");
 
+console.log("server is running");
+
 const app = new Hono();
 
 app.get("/", (c) => c.text("Hello Deno!"));
