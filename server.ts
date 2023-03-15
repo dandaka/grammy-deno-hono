@@ -5,14 +5,12 @@ import { serve } from "https://deno.land/std@0.154.0/http/server.ts";
 import { bot } from "./bot.ts";
 import { webhookCallback } from "./deps.deno.ts";
 
-const handleUpdate = webhookCallback(bot, "std/http");
+// const handleUpdate = webhookCallback(bot, "hono");
 
 const app = new Hono();
 
 app.get("/", (c) => c.text("Hello Deno!"));
 
-app.post("/telegram", () => {
-  return handleUpdate(c.req);
-});
+app.post("/telegram", webhookCallback(bot, "hono"));
 
 serve(app.fetch);
