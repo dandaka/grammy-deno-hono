@@ -3,7 +3,7 @@ import { cors } from "https://deno.land/x/hono@v3.0.2/middleware.ts";
 
 import { serve } from "https://deno.land/std@0.179.0/http/server.ts";
 import { bot } from "./bot.ts";
-import { webhookCallback } from "./deps.deno.ts";
+import { webhookCallback } from "https://deno.land/x/grammy@v1.15.3/mod.ts";
 
 // const handleUpdate = webhookCallback(bot, "hono");
 
